@@ -13,7 +13,7 @@
               len;
           len = res.persons.length;
           for (i = 0; i < len; i ++) {
-            innerHtml_list += res.persons[i].id + ',' + res.persons[i].name + '<br>';
+            innerHtml_list += res.persons[i].id + ',' + res.persons[i].name + '<input type="button" onclick="deletePerson(' + res.persons[i].id + ');" value="delete"/>' + '<br>';
           }
           document.getElementById('list').innerHTML = innerHtml_list;
         }
@@ -31,51 +31,11 @@
       })
     }
 
-/*
-    var aaa = {
-      "/abc/:category/cde/:id": '1',
-      "/abc": '2',
-      "/abc/def/test": '3'
+    function deletePerson(id) {
+      client.delete('/persons/' + id, {}, function (res) {
+        document.getElementById('post_result').innerHTML = JSON.stringify(res);
+      });
     }
-//    alert(aaa["/abc/cde"]);
-
-    for (key in aaa) {
-      while (/^.*:.+\/?.*$/.test(key)) {
-        key.replace(/\[b\](.*?)\[\/b\]/ig, "<font style='font-weight:bold'>$1</font>");
-      }
-    }
-
-    var v = "/abc/cde/123";
-    for (key in aaa) {
-
-      if (/^\/abc\/cde$/.test(key)) {
-        return
-      }
-    }
-
-    alert(aaa[/^\/abc\/cde$/]);
-
-    var aaa = {
-      "/abc/:category/:category2/cde/:id": '1',
-      "/abc": '2',
-      "/abc/def/test": '3'
-    }
-    //    alert(aaa["/abc/cde"]);
-
-    for (key in aaa) {
-      document.write(key.match(/:.+?\//g));
-      document.write('<br>');
-      document.write(key.match(/:((?!\/).)+$/g));
-      document.write('<br>');
-
-      key.replace(/:.+?\/g, ':.+?/');
-      //key.replace(/:((?!\/).)+$/, ':((?!\/).)+$');
-
-      document.write('key');
-      document.write('<br>');
-
-    }*/
-
   </script>
 </head>
 <body>

@@ -62,3 +62,23 @@ rsServer.post('/persons', function (socket, req, callback) {
     });
   }
 });
+
+rsServer.delete('/persons/:id', function (socket, req, callback) {
+  var i,
+  len;
+  for (i = 0, len = persons.length; i < len; i++) {
+    if (persons[i].id == req.param.id) {
+      persons.splice(i, 1);
+      callback();
+      return;
+    }
+  }
+
+  callback({
+    status: {
+      code: 404,
+      message: 'Not Found'
+    },
+    error_message: 'person id not found'
+  });
+});
