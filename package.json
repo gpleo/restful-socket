@@ -1,0 +1,35 @@
+{
+  "name": "restful-socket",
+  "version": "0.0.1",
+  "description": "use socket.io to exchange data by restful style.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gpleo/restful-socket.git"
+  },
+  "keywords": [
+    "websocket",
+    "restful"
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "Leo",
+  "license": "MIT",
+  "dependencies": {
+    "restful-socket-client": "0.0.1",
+    "socket.io": "^1.2.1",
+    "sugar": "^1.4.1"
+  },
+  "bugs": {
+    "url": "https://github.com/gpleo/restful-socket/issues"
+  },
+  "homepage": "https://github.com/gpleo/restful-socket",
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

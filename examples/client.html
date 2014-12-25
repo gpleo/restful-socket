@@ -1,0 +1,88 @@
+<html>
+<head>
+  <script src="/restful-socket/socket.io.js"></script>
+  <script src="/restful-socket/restful-socket-client.js"></script>
+  <script>
+    var client = new RestfulSocketClient('/', {path: '/restful-socket'});
+
+    function listPersons () {
+      client.get('/persons', {}, function (res) {
+        if (res.status.code === 200) {
+          var innerHtml_list = "",
+              i,
+              len;
+          len = res.persons.length;
+          for (i = 0; i < len; i ++) {
+            innerHtml_list += res.persons[i].id + ',' + res.persons[i].name + '<br>';
+          }
+          document.getElementById('list').innerHTML = innerHtml_list;
+        }
+      });
+    }
+
+    function postPerson () {
+      var person_name = document.getElementById('name').value;
+      client.post('/persons', {
+        person: {
+          name: person_name
+        }
+      }, function (res) {
+        document.getElementById('post_result').innerHTML = JSON.stringify(res);
+      })
+    }
+
+/*
+    var aaa = {
+      "/abc/:category/cde/:id": '1',
+      "/abc": '2',
+      "/abc/def/test": '3'
+    }
+//    alert(aaa["/abc/cde"]);
+
+    for (key in aaa) {
+      while (/^.*:.+\/?.*$/.test(key)) {
+        key.replace(/\[b\](.*?)\[\/b\]/ig, "<font style='font-weight:bold'>$1</font>");
+      }
+    }
+
+    var v = "/abc/cde/123";
+    for (key in aaa) {
+
+      if (/^\/abc\/cde$/.test(key)) {
+        return
+      }
+    }
+
+    alert(aaa[/^\/abc\/cde$/]);
+
+    var aaa = {
+      "/abc/:category/:category2/cde/:id": '1',
+      "/abc": '2',
+      "/abc/def/test": '3'
+    }
+    //    alert(aaa["/abc/cde"]);
+
+    for (key in aaa) {
+      document.write(key.match(/:.+?\//g));
+      document.write('<br>');
+      document.write(key.match(/:((?!\/).)+$/g));
+      document.write('<br>');
+
+      key.replace(/:.+?\/g, ':.+?/');
+      //key.replace(/:((?!\/).)+$/, ':((?!\/).)+$');
+
+      document.write('key');
+      document.write('<br>');
+
+    }*/
+
+  </script>
+</head>
+<body>
+
+
+<div id='list'></div><input type="button" onclick="listPersons();" value="list"/><br>
+Name: <input type="text" id="name"/><input type="button" onclick="postPerson()" value="post"/><br>
+<div id="post_result"></div>
+</body>
+</html>
