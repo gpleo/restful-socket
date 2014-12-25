@@ -25,21 +25,21 @@ var persons = [{
   next_id = 3,
   connection_number = 0;
 
-rsServer.on('connection', function (socket) {
+rsServer.onConnection = function (socket) {
   console.log('connection.(%s)', ++connection_number);
-});
-rsServer.on('disconnect', function (socket) {
+};
+rsServer.onDisconnect = function (socket) {
   console.log('disconnect.(%s)', --connection_number);
-});
+};
 
-rsServer.get('/persons', function (socket, data, callback){
+rsServer.get('/persons', function (socket, req, callback){
   callback({
     persons: persons
   });
 });
 
-rsServer.post('/persons', function (socket, data, callback) {
-  if (!data || !data.person || !data.person.name) {
+rsServer.post('/persons', function (socket, req, callback) {
+  if (!req.data || !req.data.person || !req.data.person.name) {
     callback({
       status: {
         code: 400,
@@ -50,32 +50,7 @@ rsServer.post('/persons', function (socket, data, callback) {
   } else {
     var person = {
       id: next_id ++,
-      name: data.person.name
-    };
-    persons.push(person);
-    callback({
-      status: {
-        code: 201,
-        message: 'Created'
-      },
-      person: person
-    });
-  }
-});
-
-rsServer.post('/persons/:id', function (socket, data, callback) {
-  if (!data || !data.person || !data.person.name) {
-    callback({
-      status: {
-        code: 400,
-        message: 'Bad Request'
-      },
-      error_message: 'person.name required'
-    });
-  } else {
-    var person = {
-      id: next_id ++,
-      name: data.person.name
+      name: req.data.person.name
     };
     persons.push(person);
     callback({
