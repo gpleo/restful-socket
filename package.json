@@ -1,6 +1,6 @@
 {
   "name": "restful-socket",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "use socket.io to exchange data by restful style.",
   "main": "index.js",
   "repository": {
@@ -17,6 +17,7 @@
   "author": "Leo",
   "license": "MIT",
   "dependencies": {
+    "mocha": "^2.1.0",
     "restful-socket-client": "*",
     "socket.io": "^1.2.1",
     "sugar": "^1.4.1"
@@ -30,6 +31,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --bail --check-leaks test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/"
   }
 }

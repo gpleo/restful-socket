@@ -1,11 +1,11 @@
 var http = require('http'),
   fs = require('fs'),
-  RSServer = new require('../index.js'),
+  RSServer = require('../index.js'),
   server,
   rsServer;
 
 server = http.createServer(function (req, res) {
-  fs.readFile(__dirname + '/client.html', function (err, data){
+  fs.readFile(__dirname + '/client.html', function (err, data) {
     res.end(data);
   });
 }).listen(9000);
@@ -32,7 +32,7 @@ rsServer.onDisconnect = function (socket) {
   console.log('disconnect.(%s)', --connection_number);
 };
 
-rsServer.get('/persons', function (socket, req, callback){
+rsServer.get('/persons', function (socket, req, callback) {
   callback({
     persons: persons
   });
@@ -49,7 +49,7 @@ rsServer.post('/persons', function (socket, req, callback) {
     });
   } else {
     var person = {
-      id: next_id ++,
+      id: next_id++,
       name: req.data.person.name
     };
     persons.push(person);
@@ -65,9 +65,9 @@ rsServer.post('/persons', function (socket, req, callback) {
 
 rsServer.delete('/persons/:id', function (socket, req, callback) {
   var i,
-  len;
+    len;
   for (i = 0, len = persons.length; i < len; i++) {
-    if (persons[i].id == req.param.id) {
+    if (persons[i].id == req.params.id) {
       persons.splice(i, 1);
       callback();
       return;
