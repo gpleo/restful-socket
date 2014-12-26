@@ -17,7 +17,7 @@
   "author": "Leo",
   "license": "MIT",
   "dependencies": {
-    "restful-socket-client": "0.0.1",
+    "restful-socket-client": "*",
     "socket.io": "^1.2.1",
     "sugar": "^1.4.1"
   },
